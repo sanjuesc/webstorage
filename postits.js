@@ -57,11 +57,12 @@ function clearStickyNotes() {
 
 	const stickies = document.getElementById('stickies');
 	const postits = stickies.getElementsByTagName('li');
-
+	var i =0;
 	while(postits.length){ //un poco "hack" hacer esto pero bueno
+		localStorage.removeItem("postit_"+i);
 		stickies.removeChild(postits[0]);
+		i++;
 	}
-	localStorage.clear()
 	mostrarEspacio()
 }
 
