@@ -16,7 +16,9 @@ function init() {
 	// por cada una de ellas, llamar al método
 	// addStickyToDOM(texto_de_la_nota);
 	for (let i = 0; i < localStorage.length; i++){
-		addStickyToDOM(localStorage["postit_"+i]);
+		if(localStorage.key(i).includes("postit_")){
+		        addStickyToDOM(localStorage[localStorage.key(i)]);    
+		}
 	}
 	mostrarEspacio() //esta llamada es para mostrar el espacio si no hay postit
 }
@@ -57,12 +59,15 @@ function clearStickyNotes() {
 
 	const stickies = document.getElementById('stickies');
 	const postits = stickies.getElementsByTagName('li');
-	var i =0;
 	while(postits.length){ //un poco "hack" hacer esto pero bueno
-		localStorage.removeItem("postit_"+i);
-		stickies.removeChild(postits[0]);
-		i++;
+             stickies.removeChild(postits[0]);
 	}
+	Object.keys(localStorage).forEach(function(key){
+		 if(key.includes("postit_")){
+			localStorage.removeItem(key);
+		}
+		console.log(key);
+	});
 	mostrarEspacio()
 }
 
